@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const { loadMovie, findMovie } = require('./movie')
+const { loadMovie, findMovie, addMovie, deleteMovie, updateMovie } = require('./movie')
 const app = express()
 
 app.use(cors())
@@ -10,7 +10,7 @@ const PORT = 3000
 
 app.get('/movies', (req, res) => {
   const movie = loadMovie()
-  res.send(movie)
+  res.status(200).send(movie)
 })
 
 app.get('/movie/:id', (req, res) => {
@@ -18,8 +18,28 @@ app.get('/movie/:id', (req, res) => {
   if(found == null){
     res.status(404).send("Movie is not found")
   }else{
-    res.send(found)
-    res.status(200)
+    res.send(found).status(200)
+  }
+})
+
+app.put('/movie/:id', (req, res) => {
+  found = findMovie(req.params.id)
+  if(found == null){
+    addMovie(req.body)
+    res.status(200).end()
+  }else{
+    updateMovie(req.params.id, req.body)
+    res.status(200).end()
+  }
+})
+
+app.delete('/movie/:id', (req, res) => {
+  found = findMovie(req.params.id)
+  if(found == null){
+    res.status(404).send("Movie is not found")
+  }else{
+    deleteMovie(req.params.id)
+    res.status(200).send("Movie deleted successfully")
   }
 })
 
@@ -27,6 +47,6 @@ app.use('/', (req,res) => {
   res.status(404).send("File Not Found")
 })
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
