@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const { loadMovie } = require('./movie')
+const { loadMovie, findMovie } = require('./movie')
 const app = express()
 
 app.use(cors())
@@ -14,19 +14,11 @@ app.get('/movies', (req, res) => {
 })
 
 app.get('/movie/:id', (req, res) => {
-  const movie = loadMovie()
-  let foundMovie = null
-  const keys = Object.keys(movie)
-  for(let i=0; i<keys.length; i++){
-    if (movie[keys[i]].id == req.params.id) {
-      foundMovie = movie[keys[i]];
-      break;
-    }
-  }
-  if(foundMovie == null){
-    res.status(404).send("Movie Not Found")
+  found = findMovie(req.params.id)
+  if(found == null){
+    res.status(404).send("Movie is not found")
   }else{
-    res.send(foundMovie)
+    res.send(found)
     res.status(200)
   }
 })

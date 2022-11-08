@@ -6,4 +6,17 @@ const loadMovie = () => {
   return movies;
 }
 
-module.exports = { loadMovie }
+const findMovie = (id) => {
+  const movie = loadMovie()
+  let foundMovie = null
+  const keys = Object.keys(movie)
+  for(let i=0; i<keys.length; i++){
+    if (movie[keys[i]].id == id) {
+      foundMovie = movie[keys[i]];
+      break;
+    }
+  }
+  return foundMovie
+}
+
+module.exports = { loadMovie, findMovie }
