@@ -14,7 +14,7 @@ app.get('/movies', (req, res) => {
 })
 
 app.get('/movie/:id', (req, res) => {
-  found = findMovie(req.params.id)
+  let found = findMovie(req.params.id)
   if(found == null){
     res.status(404).send("Movie is not found")
   }else{
@@ -23,7 +23,7 @@ app.get('/movie/:id', (req, res) => {
 })
 
 app.put('/movie/:id', (req, res) => {
-  found = findMovie(req.params.id)
+  let found = findMovie(req.params.id)
   if(found == null){
     addMovie(req.body)
     res.status(200).end()
@@ -34,7 +34,7 @@ app.put('/movie/:id', (req, res) => {
 })
 
 app.delete('/movie/:id', (req, res) => {
-  found = findMovie(req.params.id)
+  let found = findMovie(req.params.id)
   if(found == null){
     res.status(404).send("Movie is not found")
   }else{
