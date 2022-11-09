@@ -9,38 +9,46 @@ app.use(express.json())
 const PORT = 3000
 
 app.get('/movies', (req, res) => {
-  const movie = loadMovie()
-  res.status(200).send(movie)
+  const movies = loadMovie()
+  movies.then((result)=>{
+    res.status(200).send(result)
+  })
 })
 
 app.get('/movie/:id', (req, res) => {
   let found = findMovie(req.params.id)
-  if(found == null){
-    res.status(404).send("Movie is not found")
-  }else{
-    res.send(found).status(200)
-  }
+  found.then((result)=>{
+    if(result == null){
+      res.status(404).send("Movie is not found")
+    }else{
+      res.send(result).status(200)
+    }
+  })
 })
 
 app.put('/movie/:id', (req, res) => {
   let found = findMovie(req.params.id)
-  if(found == null){
-    addMovie(req.body)
-    res.status(200).end()
-  }else{
-    updateMovie(req.params.id, req.body)
-    res.status(200).end()
-  }
+  found.then((result)=>{
+    if(result == null){
+      addMovie(req.body)
+      res.status(200).end()
+    }else{
+      updateMovie(req.params.id, req.body)
+      res.status(200).end()
+    }
+  })
 })
 
 app.delete('/movie/:id', (req, res) => {
   let found = findMovie(req.params.id)
-  if(found == null){
-    res.status(404).send("Movie is not found")
-  }else{
-    deleteMovie(req.params.id)
-    res.status(200).send("Movie deleted successfully")
-  }
+  found.then((result)=>{
+    if(result == null){
+      res.status(404).send("Movie is not found")
+    }else{
+      deleteMovie(req.params.id)
+      res.status(200).send("Movie deleted successfully")
+    }
+  })
 })
 
 app.use('/', (req,res) => {
