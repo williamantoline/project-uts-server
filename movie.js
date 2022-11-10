@@ -33,9 +33,14 @@ const updateMovie = (id, NewMovieData) => {
       movies[keys[i]].original_language = NewMovieData.original_language
       movies[keys[i]].overview = NewMovieData.overview
       movies[keys[i]].popularity = NewMovieData.popularity
+      movies[keys[i]].poster_path = NewMovieData.poster_path
+      movies[keys[i]].release_date = NewMovieData.release_date
+      movies[keys[i]].revenue = NewMovieData.revenue
       movies[keys[i]].runtime = NewMovieData.runtime
       movies[keys[i]].tagline = NewMovieData.tagline
       movies[keys[i]].title = NewMovieData.title
+      movies[keys[i]].vote_average = NewMovieData.vote_average
+      movies[keys[i]].vote_count = NewMovieData.vote_count
       break;
     }
   }
