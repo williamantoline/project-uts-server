@@ -8,12 +8,12 @@ app.use(express.json())
 
 const PORT = 3000
 
-app.get('/movies', (req, res) => {
+app.get('/api/movies', (req, res) => {
   const movie = loadMovie()
   res.status(200).send(movie)
 })
 
-app.get('/movie/:id', (req, res) => {
+app.get('/api/movie/:id', (req, res) => {
   let found = findMovie(req.params.id)
   if(found == null){
     res.status(404).send("Movie is not found")
@@ -22,7 +22,7 @@ app.get('/movie/:id', (req, res) => {
   }
 })
 
-app.put('/movie/:id', (req, res) => {
+app.put('/api/movie/:id', (req, res) => {
   let found = findMovie(req.params.id)
   if(found == null){
     addMovie(req.body)
@@ -33,7 +33,7 @@ app.put('/movie/:id', (req, res) => {
   }
 })
 
-app.delete('/movie/:id', (req, res) => {
+app.delete('/api/movie/:id', (req, res) => {
   let found = findMovie(req.params.id)
   if(found == null){
     res.status(404).send("Movie is not found")
