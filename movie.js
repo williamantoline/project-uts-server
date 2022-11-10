@@ -23,9 +23,23 @@ const findMovie = (id) => {
   return foundMovie
 }
 
-const updateMovie = (id, movie) => {
-  deleteMovie(id)
-  addMovie(movie)
+const updateMovie = (id, NewMovieData) => {
+  const movies = loadMovie()
+  const keys = Object.keys(movies)
+  for(let i=0; i<keys.length; i++){
+    if (movies[keys[i]].id == id) {
+      movies[keys[i]].budget = NewMovieData.budget
+      movies[keys[i]].homepage = NewMovieData.homepage
+      movies[keys[i]].original_language = NewMovieData.original_language
+      movies[keys[i]].overview = NewMovieData.overview
+      movies[keys[i]].popularity = NewMovieData.popularity
+      movies[keys[i]].runtime = NewMovieData.runtime
+      movies[keys[i]].tagline = NewMovieData.tagline
+      movies[keys[i]].title = NewMovieData.title
+      break;
+    }
+  }
+  saveMovies(movies)
 }
 
 const addMovie = (movie) => {

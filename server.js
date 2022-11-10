@@ -26,10 +26,10 @@ app.put('/movie/:id', (req, res) => {
   let found = findMovie(req.params.id)
   if(found == null){
     addMovie(req.body)
-    res.status(200).end()
+    res.status(200).send("Movie added successfully")
   }else{
     updateMovie(req.params.id, req.body)
-    res.status(200).end()
+    res.status(200).send("Movie updated successfully")
   }
 })
 
